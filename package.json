@@ -4,7 +4,7 @@
   "description": "Provides a function to compare two strings",
   "main": "lib/library.js",
   "scripts": {
-    "build": "webpack --env build && flow-copy-source src dist",
+    "build": "webpack --env build && flow gen-flow-files ./src/*.js --out-dir ./dist/",
     "dev": "webpack --progress --colors --watch --env dev",
     "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
     "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
@@ -24,7 +24,9 @@
     "flow-bin": "*",
     "mocha": "*",
     "webpack": "*",
-    "yargs": "*"
+    "yargs": "*",
+    "babel-plugin-transform-flow-strip-types": "*",
+    "eslint-plugin-flowtype-errors": "*"
   },
   "eslintConfig": {
     "env": {
@@ -70,10 +72,5 @@
   "bugs": {
     "url": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
   },
-  "homepage": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues",
-  "dependencies": {
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "eslint-plugin-flowtype-errors": "^3.3.0",
-    "flow-copy-source": "^1.1.0"
-  }
+  "homepage": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
 }
