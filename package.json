@@ -4,7 +4,7 @@
   "description": "Provides a function to compare two strings",
   "main": "lib/library.js",
   "scripts": {
-    "build": "webpack --env build",
+    "build": "webpack --env build && flow-copy-source src dist",
     "dev": "webpack --progress --colors --watch --env dev",
     "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
     "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
@@ -12,13 +12,16 @@
   "devDependencies": {
     "babel-cli": "*",
     "babel-core": "*",
-    "babel-eslint": "*",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "*",
     "babel-plugin-add-module-exports": "*",
     "babel-preset-es2015": "*",
+    "babel-preset-flow": "*",
     "chai": "*",
     "eslint": "*",
     "eslint-loader": "*",
+    "eslint-plugin-flowtype": "*",
+    "flow-bin": "*",
     "mocha": "*",
     "webpack": "*",
     "yargs": "*"
@@ -29,12 +32,29 @@
       "node": true,
       "es6": true
     },
+    "parser": "babel-eslint",
     "parserOptions": {
-        "sourceType": "module"
+      "sourceType": "module"
+    },
+    "extends": [
+      "plugin:flowtype/recommended"
+    ],
+    "plugins": [
+      "flowtype",
+      "flowtype-errors"
+    ],
+    "rules": {
+      "flowtype-errors/show-errors": 2
     }
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015",
+      "flow"
+    ],
+    "plugins": [
+      "transform-flow-strip-types"
+    ]
   },
   "repository": {
     "type": "git",
@@ -50,5 +70,10 @@
   "bugs": {
     "url": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
   },
-  "homepage": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
+  "homepage": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues",
+  "dependencies": {
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "eslint-plugin-flowtype-errors": "^3.3.0",
+    "flow-copy-source": "^1.1.0"
+  }
 }

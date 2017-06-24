@@ -1,5 +1,6 @@
+// @flow
 
-function compare(a, b) {
+function compare(a: string, b: string): number {
     console.error(b);
 
 	return 0;
