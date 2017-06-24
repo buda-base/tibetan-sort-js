@@ -1,0 +1,54 @@
+{
+  "name": "tivetan-sort-js",
+  "version": "0.1.0",
+  "description": "Provides a function to compare two strings",
+  "main": "lib/library.js",
+  "scripts": {
+    "build": "webpack --env build",
+    "dev": "webpack --progress --colors --watch --env dev",
+    "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
+    "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
+  },
+  "devDependencies": {
+    "babel-cli": "*",
+    "babel-core": "*",
+    "babel-eslint": "*",
+    "babel-loader": "*",
+    "babel-plugin-add-module-exports": "*",
+    "babel-preset-es2015": "*",
+    "chai": "*",
+    "eslint": "*",
+    "eslint-loader": "*",
+    "mocha": "*",
+    "webpack": "*",
+    "yargs": "*"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
+    },
+    "parserOptions": {
+        "sourceType": "module"
+    }
+  },
+  "babel": {
+    "presets": ["es2015"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js.git"
+  },
+  "keywords": [
+    "tibetan",
+    "collation",
+    "sorting"
+  ],
+  "author": "Elie Roux (Buddhist Digital Resource Center)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
+  },
+  "homepage": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
+}
