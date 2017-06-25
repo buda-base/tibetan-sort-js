@@ -33,4 +33,4 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ## License
 
-The code is Copyright 2017 Buddhist Digital Resource Center, and is provided under [Apache License 2.0](LICENSE).
+The code is Copyright 2017 Buddhist Digital Resource Center, and is provided under the [MIT License](LICENSE).
