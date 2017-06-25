@@ -4,8 +4,10 @@
   "description": "Provides a function to compare two strings",
   "main": "lib/library.js",
   "scripts": {
-    "build": "webpack --env build && flow gen-flow-files ./src/*.js --out-dir ./dist/",
-    "dev": "webpack --progress --colors --watch --env dev",
+    "build": "webpack --env build && yarn run genflow && yarn run gendoc",
+    "genflow": "flow gen-flow-files ./src/*.js --out-dir ./dist/",
+    "gendoc": "documentation readme src/*.js --section=API",
+    "dev": "webpack --progress --colors --env dev",
     "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
     "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
   },
@@ -15,18 +17,18 @@
     "babel-eslint": "^7.2.3",
     "babel-loader": "*",
     "babel-plugin-add-module-exports": "*",
+    "babel-plugin-transform-flow-strip-types": "*",
     "babel-preset-es2015": "*",
     "babel-preset-flow": "*",
     "chai": "*",
     "eslint": "*",
     "eslint-loader": "*",
     "eslint-plugin-flowtype": "*",
+    "eslint-plugin-flowtype-errors": "*",
     "flow-bin": "*",
     "mocha": "*",
     "webpack": "*",
-    "yargs": "*",
-    "babel-plugin-transform-flow-strip-types": "*",
-    "eslint-plugin-flowtype-errors": "*"
+    "yargs": "*"
   },
   "eslintConfig": {
     "env": {
@@ -72,5 +74,8 @@
   "bugs": {
     "url": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
   },
-  "homepage": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
+  "homepage": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues",
+  "dependencies": {
+    "documentation": "^4.0.0-rc.1"
+  }
 }

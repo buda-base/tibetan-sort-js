@@ -1,7 +1,7 @@
 /* global describe, it, before */
 
 import chai from 'chai';
-import {compare} from '../lib/tibetan-sort-js.js';
+import {compare} from '../dist/tibetan-sort-js.js';
 
 chai.expect();
 
@@ -32,10 +32,12 @@ describe('Comparing non-tibetan and Tibetan', () => {
   });
 });
 
-// describe('Comparing Tibetan strings', () => {
-//   describe('sorting', () => {
-//     it('should return 0', () => {
-//       expect(compare("a","ཀ་")).to.be.equal(1);
-//     });
-//   });
-// });
+describe('Comparing Tibetan strings', () => {
+  describe('sorting', () => {
+    it('should return the correct order', () => {
+      expect(compare("བརྐ","ག")).to.be.equal(-1);
+      expect(compare("ག", "བ",)).to.be.equal(-1);
+      expect(compare("ག་བརྐ","ག་ག")).to.be.equal(-1);
+    });
+  });
+});
