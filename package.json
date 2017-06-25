@@ -1,13 +1,15 @@
 {
   "name": "tibetan-sort-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides a function to compare two strings",
-  "main": "dist/tibetan-sort-js.js",
+  "main": "dist/tibetan-sort-js.min.js",
   "scripts": {
-    "build": "webpack --env build && yarn run genflow && yarn run gendoc",
+    "compile": "webpack --env build && yarn run genflow",
+    "prepublish": "yarn run compile",
+    "build": "yarn run compile && yarn run gendoc",
     "genflow": "flow gen-flow-files ./src/*.js --out-dir ./dist/",
     "gendoc": "documentation readme src/*.js --section=API",
-    "dev": "webpack --progress --colors --env dev",
+    "dev": "webpack --env dev",
     "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
     "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
   },
@@ -28,7 +30,8 @@
     "flow-bin": "*",
     "mocha": "*",
     "webpack": "*",
-    "yargs": "*"
+    "yargs": "*",
+    "documentation": "*"
   },
   "eslintConfig": {
     "env": {
@@ -74,8 +77,5 @@
   "bugs": {
     "url": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
   },
-  "homepage": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues",
-  "dependencies": {
-    "documentation": "^4.0.0-rc.1"
-  }
+  "homepage": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
 }

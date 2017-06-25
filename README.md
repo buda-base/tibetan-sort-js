@@ -10,6 +10,12 @@ Pure Javascript implementations of `Intl.Collator` don't seem to exist, as the o
 
 The only library we found that would be of possible use is [lasca](https://github.com/atomgomba/lasca), but it proved very buggy and extremely inefficient.
 
+### This implementation
+
+This implementation aims at being very efficient, at the cost of difficult corner cases in Tibetan. As a consequence:
+- it does not normalize strings (`\u0F77` is not treated like `\u0FB2\u0F71\u0F80`)
+- it does not handle Sanskrit stacks very precisely (the ICU rule `&ཀར<ཀརྐ` is too difficult to handle)
+
 ## Installation
 
     yarn add tibetan-sort-js --save
@@ -30,6 +36,14 @@ reasonably well with non-Tibetan strings.
 -   `b` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** second string to be compared.
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 0 if equivalent, 1 if a > b, -1 if a &lt; b
+
+## TODO
+
+- add an option to normalize strings
+
+## Release history
+
+See [change log](CHANGELOG.md).
 
 ## License
 
