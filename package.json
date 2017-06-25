@@ -1,6 +1,6 @@
 {
   "name": "tivetan-sort-js",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Provides a function to compare two strings",
   "main": "lib/library.js",
   "scripts": {
