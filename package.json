@@ -1,8 +1,8 @@
 {
-  "name": "tivetan-sort-js",
+  "name": "tibetan-sort-js",
   "version": "1.0.0",
   "description": "Provides a function to compare two strings",
-  "main": "lib/library.js",
+  "main": "dist/tibetan-sort-js.js",
   "scripts": {
     "build": "webpack --env build && yarn run genflow && yarn run gendoc",
     "genflow": "flow gen-flow-files ./src/*.js --out-dir ./dist/",
@@ -14,7 +14,7 @@
   "devDependencies": {
     "babel-cli": "*",
     "babel-core": "*",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "*",
     "babel-loader": "*",
     "babel-plugin-add-module-exports": "*",
     "babel-plugin-transform-flow-strip-types": "*",
