@@ -1,4 +1,4 @@
-# JS Library to sort Tibetan
+# JS Library to sort Tibetan 
 
 After exploring different options for [tibetan collation](https://github.com/eroux/tibetan-collation) in JavaScript, there seems to be no viable option to sort Unicode Tibetan strings. This library hopes to fullfill this purpose in an elegant, modern and efficient manner.
 
