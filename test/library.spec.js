@@ -44,6 +44,7 @@ describe('Comparing Ewts strings', () => {
       expect(sortjs.compareEwts("g", "b")).to.be.equal(-1);
       expect(sortjs.compareEwts("kra", "gra")).to.be.equal(-1);
       expect(sortjs.compareEwts("brkya", "gra")).to.be.equal(-1);
+      expect(sortjs.compareEwts("brkya", "brka")).to.be.equal(1);
       expect(sortjs.compareEwts("ga brka","ga ga")).to.be.equal(-1);
       expect(sortjs.compareEwts("dag","dgar")).to.be.equal(1);
     });

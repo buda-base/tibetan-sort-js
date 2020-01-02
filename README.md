@@ -26,9 +26,9 @@ This implementation aims at being very efficient, at the cost of difficult corne
 
 ### compare
 
-Compares two strings, can be used as argument of Array.compare(). 
-The behavior is undefined if the arguments are not strings. Works
-reasonably well with non-Tibetan strings.
+Compares two strings in Tibetan Unicode, can be used as argument of Array.compare(). 
+The behavior is undefined if the arguments are not strings. Doesn't workswell 
+with non-Tibetan strings.
 
 **Parameters**
 
@@ -37,9 +37,13 @@ reasonably well with non-Tibetan strings.
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 0 if equivalent, 1 if a > b, -1 if a &lt; b
 
+### compareEwts
+
+Compares two strings in [EWTS](http://www.thlib.org/reference/transliteration/#!essay=/thl/ewts/), has the same argument and return value as `compare`. The function only works on customary EWTS and doesn't handle oddly encoded cases such as `b.r+g+ya` (instead of `brgya`).
+
 ## TODO
 
-- add an option to normalize strings
+- add an option to normalize strings?
 
 ## Release history
 

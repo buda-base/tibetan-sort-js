@@ -2,12 +2,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). It follows [some conventions](http://keepachangelog.com/).
 
- ## [1.0.1] - 2017-06-25
- - Update deps
- - remove flow
+## [2.0.0] - 2020-01-02
+### Changed
+- Update deps
 
- ## [1.0.1] - 2017-06-25
- - Packaging fixes
+### Removed
+- remove flow
+
+### Added
+- handle EWTS
+
+
+## [1.0.1] - 2017-06-25
+### Changed
+- Packaging fixes
  
- ## [1.0.0] - 2017-06-25
- - Initial release
+## [1.0.0] - 2017-06-25
+### Added
+- Initial release
