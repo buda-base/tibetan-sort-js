@@ -1,7 +1,7 @@
 /* global describe, it, before */
 
 import chai from 'chai';
-import {compare} from '../dist/main.js';
+import {compare, compareEwts} from '../dist/main.js';
 
 chai.expect();
 
@@ -32,12 +32,23 @@ describe('Comparing non-tibetan and Tibetan', () => {
   });
 });
 
-describe('Comparing Tibetan strings', () => {
+describe('Comparing Tibetan Unicode strings', () => {
   describe('sorting', () => {
     it('should return the correct order', () => {
       expect(compare("བརྐ","ག")).to.be.equal(-1);
       expect(compare("ག", "བ",)).to.be.equal(-1);
       expect(compare("ག་བརྐ","ག་ག")).to.be.equal(-1);
+    });
+  });
+});
+
+describe('Comparing Ewts strings', () => {
+  describe('sorting', () => {
+    it('should return the correct order', () => {
+      expect(compareEwts("brka","ga")).to.be.equal(-1);
+      expect(compareEwts("g", "b")).to.be.equal(-1);
+      expect(compareEwts("ga brka","ga ga")).to.be.equal(-1);
+      expect(compareEwts("dag","dgar")).to.be.equal(1);
     });
   });
 });
