@@ -11,14 +11,15 @@
  *
  * A trie node is as follows:
  *  {
- *    p: primary weight of the node (optional)
- *    s: secondary weight of the node (optional)
+ *    prim: primary weight of the node (optional)
+ *    sec: secondary weight of the node (optional)
  *    char1: trieNode1,
  *    char2: trieNode2,
  *    ...
  *  }
  */
 var trieUni = null;
+var trieEwts = null;
 
 /**
  * @private
@@ -36,8 +37,8 @@ function addToTrie(t, p, s, str) {
             current = current[c];
         }
     }
-    current.p = p;
-    current.s = s;
+    current.prim = p;
+    current.sec = s;
 }
 
 /**
@@ -48,10 +49,13 @@ function addToTrie(t, p, s, str) {
  *   - secondary weight is the 
  */
 function addBatch(t, a) {
-    var primary = a[0].charCodeAt(0);
+    var primarySymbol = a[0];
+    var newhighest = t.highestprimaryweight + 1;
+    t.primaryweights[primarySymbol] = newhighest;
+    t.highestprimaryweight = newhighest;
     var arrayLength = a.length;
     for (var i = 0; i < arrayLength; i++) {
-        addToTrie(t, primary, i, a[i]);
+        addToTrie(t, newhighest, i, a[i]);
     }
 }
 
@@ -60,7 +64,11 @@ function addBatch(t, a) {
  * Fills the tree. Data comes from https://github.com/eroux/tibetan-collation.
  */
 function initUni() {
-    trieUni = {};
+    trieUni = {
+        "primaryweights": {},
+        "highestprimaryweight": 0
+    };
+    addBatch(trieUni, ['ཱ', 'ི', 'ཱི', 'ྀ', 'ཱྀ', 'ུ', 'ཱུ', 'ེ', 'ཻ', 'ོ', 'ཽ']);
     addBatch(trieUni, ['ཀ', 'ྈྐ', 'ཫ', 'དཀ', 'བཀ', 'རྐ', 'ལྐ', 'སྐ', 'བརྐ', 'བསྐ']);
     addBatch(trieUni, ['ཁ', 'ྈྑ', 'མཁ', 'འཁ']);
     addBatch(trieUni, ['ག', 'དགག', 'དགང', 'དགད', 'དགན', 'དགབ', 'དགཝ', 'དགའ', 'དགར', 'དགལ', 'དགས', 'དགི', 'དགུ', 'དགེ', 'དགོ', 'དགྭ', 'དགྱ', 'དགྲ', 'བགག', 'བགང', 'བགད', 'བགབ', 'བགམ', 'བགཾ', 'བགཝ', 'བགའ', 'བགར', 'བགལ', 'བགི', 'བགུ', 'བགེ', 'བགོ', 'བགྭ', 'བགྱ', 'བགྲ', 'བགླ', 'མགག', 'མགང', 'མགད', 'མགབ', 'མགའ', 'མགར', 'མགལ', 'མགི', 'མགུ', 'མགེ', 'མགོ', 'མགྭ', 'མགྱ', 'མགྲ', 'འགག', 'འགང', 'འགད', 'འགན', 'འགབ', 'འགམ', 'འགཾ', 'འགའ', 'འགར', 'འགལ', 'འགས', 'འགི', 'འགུ', 'འགེ', 'འགོ', 'འགྭ', 'འགྱ', 'འགྲ', 'རྒ', 'ལྒ', 'སྒ', 'བརྒ', 'བསྒ']);
@@ -88,11 +96,10 @@ function initUni() {
     addBatch(trieUni, ['ཤ', 'ཥ', 'གཤ', 'བཤ']);
     addBatch(trieUni, ['ས', 'གསག', 'གསང', 'གསད', 'གསན', 'གསབ', 'གསའ', 'གསར', 'གསལ', 'གསས', 'གསི', 'གསུ', 'གསེ', 'གསོ', 'གསྭ', 'བསག', 'བསང', 'བསད', 'བསབ', 'བསམ', 'བསཾ', 'བསའ', 'བསར', 'བསལ', 'བསས', 'བསི', 'བསུ', 'བསེ', 'བསོ', 'བསྭ', 'བསྲ', 'བསླ']);
     addBatch(trieUni, ['ཧ', 'ལྷ']);
-    addBatch(trieUni, ['ཱ', 'ི', 'ཱི', 'ྀ', 'ཱྀ', 'ུ', 'ཱུ', 'ེ', 'ཻ', 'ོ', 'ཽ']);
     addBatch(trieUni, ['།', '༎', '༏', '༐', '༑', '༔', '༴', '\u0F0B']);
     // we want 0F0B = OF0C
-    let tshegprops = getLongestMatch('\u0F0B', 0, trie);
-    addToTrie(trieUni, tshegprops.p, tshegprops.s, '\u0F0C');
+    let tshegprops = getLongestMatch('\u0F0B', 0, trieUni);
+    addToTrie(trieUni, tshegprops.prim, tshegprops.sec, '\u0F0C');
 }
 
 /**
@@ -100,7 +107,12 @@ function initUni() {
  * Fills the tree. Data comes from https://github.com/eroux/tibetan-collation.
  */
 function initEwts() {
-    trieEwts = {};
+    trieEwts = {
+        "primaryweights": {},
+        "highestprimaryweight": 0
+    };
+    addBatch(trieEwts, ['+', '.']);
+    addBatch(trieEwts, ['a', 'A', 'i', 'I', '-i', '-I', 'u', 'U', 'e', 'ai', 'o', 'au']);
     addBatch(trieEwts, ['k', '\\u0f88+k', '\\u0f6b', 'dk', 'bk', 'rk', 'lk', 'sk', 'brk', 'bsk']);
     addBatch(trieEwts, ['kh', '\\u0f88+kh', 'mkh', '\'kh']);
     addBatch(trieEwts, ['g', 'dg', 'bg', 'mg', '\'g', 'rg', 'lg', 'sg', 'brg', 'bsg']);
@@ -108,7 +120,7 @@ function initEwts() {
     addBatch(trieEwts, ['c', 'gc', 'bc', 'lc', 'lbc']);
     addBatch(trieEwts, ['ch', 'mch', '\'ch']);
     addBatch(trieEwts, ['j', 'mj', '\'j', 'rj', 'lj', 'brj']);
-    addBatch(trieEwts, ['ny', '\\u0f8b\\u0f99', 'gny', 'mny', 'rny', 'sny', 'brny', 'bsny']);
+    addBatch(trieEwts, ['ny', '\\u0f8b+ny', 'gny', 'mny', 'rny', 'sny', 'brny', 'bsny']);
     addBatch(trieEwts, ['t', 'T', 'tw', 'tr', 'gt', 'bt', 'rt', 'lt', 'st', 'brt', 'blt', 'bst']);
     addBatch(trieEwts, ['th', 'Th', 'mth', '\'th']);
     addBatch(trieEwts, ['d', 'D', 'gd', 'bd', 'md', '\'d', 'rd', 'ld', 'sd', 'brd', 'bld', 'bsd']);
@@ -128,11 +140,10 @@ function initEwts() {
     addBatch(trieEwts, ['sh', 'Sh', 'gsh', 'bsh']);
     addBatch(trieEwts, ['s', 'gs', 'bs']);
     addBatch(trieEwts, ['h', 'lh']);
-    addBatch(trieEwts, ['a', 'A', 'i', 'I', '-i', '-I', 'u', 'U', 'e', 'ai', 'o', 'au']);
     addBatch(trieEwts, ['/', ';', '|', ':', '=', ' ']);
-    // we want space = *
+    // we want (space) = *
     let tshegprops = getLongestMatch(' ', 0, trieEwts);
-    addToTrie(trieEwts, tshegprops.p, tshegprops.s, '*');
+    addToTrie(trieEwts, tshegprops.prim, tshegprops.sec, '*');
 }
 
 /**
@@ -145,12 +156,12 @@ function initEwts() {
  *
  * Returns an object corresponding to the match, with three values:
  *  - i: the number of characters of the match
- *  - p: the primary weight of the match
- *  - s: the secondary weight of the match
+ *  - prim: the primary weight of the match
+ *  - sec: the secondary weight of the match
  *
- * If no character were analyzed (off > str.length for instance), returns {i: 0, p: 0, s: 0}.
+ * If no character were analyzed (off > str.length for instance), returns {i: 0, prim: 0, sec: 0}.
  * If the caracters of the string do not match anything in the trieUni, returns:
- * {i: 1, p: pValue, s: 0} where pValue is the unicode code point of the first character analyzed.
+ * {i: 1, prim: pValue, sec: 0} where pValue is the unicode code point of the first character analyzed.
  */
 function getLongestMatch(str, off, t) {
     var strLength = str.length;
@@ -163,37 +174,27 @@ function getLongestMatch(str, off, t) {
         let curChar = str.charAt(i);
         if (current[curChar]) {
             current = current[curChar];
-            if (current.p) {
+            if (current.prim) {
                 saveNbChars = saveNbChars +1;
-                savePrimary = current.p;
-                saveSecondary = current.s;
+                savePrimary = current.prim;
+                saveSecondary = current.sec;
             } else if (savePrimary === 0) {
-                savePrimary = str.charCodeAt(i);
+                savePrimary = str[i] in t.primaryweights ? t.primaryweights[str[i]] : 0 ;
                 saveNbChars = 1;
             }
         } else {
             if (saveNbChars === 0) {
-                return {i: 1, p: str.charCodeAt(i), s: 0};
+                return {i: 1, prim: str[i] in t.primaryweights ? t.primaryweights[str[i]] : 0, sec: 0};
             }
-            return {i: saveNbChars, p: savePrimary, s: saveSecondary};
+            return {i: saveNbChars, prim: savePrimary, sec: saveSecondary};
         }
     }
-    return {i: saveNbChars, p: savePrimary, s: saveSecondary};
+    return {i: saveNbChars, prim: savePrimary, sec: saveSecondary};
 }
 
 /**
  * @private
- * Compares two strings encoded in Tibetan Unicode.
- * It can be used as argument of Array.compare(). 
- * The behavior is undefined if the arguments are not strings. Works
- * reasonably well with non-Tibetan strings.
- *
- * The third argument must be a Trie (trie or trieEwts).
- * 
- * @param {string} a - first string to be compared.
- * @param {string} b - second string to be compared.
- * @returns {number} - 0 if equivalent, 1 if a > b, -1 if a < b
- * @summary compares two strings.
+ * Compares two strings using a trie given as the third argument.
  */
 function compareInTrie(a, b, t) {
     var aOffset = 0;
@@ -205,10 +206,10 @@ function compareInTrie(a, b, t) {
         if (alm.i < 1 && blm.i < 1) return 0;
         if (alm.i < 1) return -1;
         if (blm.i < 1) return 1;
-        if (alm.p < blm.p) return -1;
-        if (alm.p > blm.p) return 1;
-        if (alm.s < blm.s) return -1;
-        if (alm.s > blm.s) return 1;
+        if (alm.prim < blm.prim) return -1;
+        if (alm.prim > blm.prim) return 1;
+        if (alm.sec < blm.sec) return -1;
+        if (alm.sec > blm.sec) return 1;
         aOffset = aOffset + alm.i;
         bOffset = bOffset + blm.i;
     }
@@ -230,7 +231,7 @@ function compareInTrie(a, b, t) {
  */
 function compare(a, b) {
     if (trieUni == null) initUni();
-    return compare(a, b, trieUni);
+    return compareInTrie(a, b, trieUni);
 }
 
 /**
@@ -246,7 +247,7 @@ function compare(a, b) {
  */
 function compareEwts(a, b) {
     if (trieEwts == null) initEwts();
-    return compare(a, b, trieEwts);
+    return compareInTrie(a, b, trieEwts);
 }
 
 
