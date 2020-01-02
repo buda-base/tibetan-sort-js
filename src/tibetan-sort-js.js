@@ -1,5 +1,3 @@
-// @flow
-
 /** 
  * @private
  * @module tibetan-sort-js
@@ -20,17 +18,17 @@
  *    ...
  *  }
  */
-var trie: any = null;
+var trie = null;
 
 /**
  * @private
  * Adding a string to the Trie, with primary weight p and
  * secondary weight s.
  */
-function addToTrie(p: number, s: number, str: string) {
+function addToTrie(p, s, str) {
     var current = trie;
-    for (let i: number = 0; i < str.length; i++) {
-        let c: string = str.charAt(i);
+    for (let i = 0; i < str.length; i++) {
+        let c = str.charAt(i);
         if (current[c])
             current = current[c];
         else {
@@ -49,10 +47,10 @@ function addToTrie(p: number, s: number, str: string) {
  *   - primary weight is the Unicode char code of the first string
  *   - secondary weight is the 
  */
-function addBatch(a: Array<string>) {
-    var primary: number = a[0].charCodeAt(0);
-    var arrayLength: number = a.length;
-    for (var i: number = 0; i < arrayLength; i++) {
+function addBatch(a) {
+    var primary = a[0].charCodeAt(0);
+    var arrayLength = a.length;
+    for (var i = 0; i < arrayLength; i++) {
         addToTrie(primary, i, a[i]);
     }
 }
@@ -93,7 +91,7 @@ function init() {
     addBatch(['ཱ', 'ི', 'ཱི', 'ྀ', 'ཱྀ', 'ུ', 'ཱུ', 'ེ', 'ཻ', 'ོ', 'ཽ']);
     addBatch(['།', '༎', '༏', '༐', '༑', '༔', '༴', '\u0F0B']);
     // we want 0F0B = OF0C
-    let tshegprops: {i: number, p: number, s: number} = getLongestMatch('\u0F0B', 0);
+    let tshegprops = getLongestMatch('\u0F0B', 0);
     addToTrie(tshegprops.p, tshegprops.s, '\u0F0C');
 }
 
@@ -112,15 +110,15 @@ function init() {
  * If the caracters of the string do not match anything in the Trie, returns:
  * {i: 1, p: pValue, s: 0} where pValue is the unicode code point of the first character analyzed.
  */
-function getLongestMatch(str: string, off: number): {i: number, p: number, s: number} {
-    var strLength: number = str.length;
-    var i: number;
+function getLongestMatch(str, off) {
+    var strLength = str.length;
+    var i;
     var current = trie;
-    var saveNbChars: number = 0;
-    var savePrimary: number = 0;
-    var saveSecondary: number = 0;
+    var saveNbChars = 0;
+    var savePrimary = 0;
+    var saveSecondary = 0;
     for (i = off; i < strLength; i++) {
-        let curChar: string = str.charAt(i);
+        let curChar = str.charAt(i);
         if (current[curChar]) {
             current = current[curChar];
             if (current.p) {
@@ -151,14 +149,14 @@ function getLongestMatch(str: string, off: number): {i: number, p: number, s: nu
  * @returns {number} - 0 if equivalent, 1 if a > b, -1 if a < b
  * @summary compares two strings.
  */
-function compare(a: string, b: string): number {
+function compare(a, b) {
     if (trie == null) init();
-    var aOffset: number = 0;
-    var bOffset: number = 0;
-    var i: number = 0;
+    var aOffset = 0;
+    var bOffset = 0;
+    var i = 0;
     while (true) {
-        let alm: {i: number, p: number, s: number} = getLongestMatch(a, aOffset);
-        let blm: {i: number, p: number, s: number} = getLongestMatch(b, bOffset);
+        let alm = getLongestMatch(a, aOffset);
+        let blm = getLongestMatch(b, bOffset);
         if (alm.i < 1 && blm.i < 1) return 0;
         if (alm.i < 1) return -1;
         if (blm.i < 1) return 1;

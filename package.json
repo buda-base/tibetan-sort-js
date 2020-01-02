@@ -1,37 +1,34 @@
 {
   "name": "tibetan-sort-js",
-  "version": "1.0.1",
-  "description": "Provides a function to compare two strings",
-  "main": "dist/tibetan-sort-js.min.js",
+  "version": "1.2.0",
+  "description": "Tibetan string sorting according to customary native order",
+  "main": "dist/main.js",
   "scripts": {
-    "compile": "webpack --env build && yarn run genflow",
+    "compile": "webpack --mode production --env build",
     "prepublish": "yarn run compile",
-    "build": "yarn run compile && yarn run gendoc",
-    "genflow": "flow gen-flow-files ./src/*.js --out-dir ./dist/",
-    "gendoc": "documentation readme src/*.js --section=API",
-    "dev": "webpack --env dev",
-    "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
-    "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
+    "build": "yarn run compile",
+    "dev": "webpack --mode development --env dev",
+    "test": "mocha -r jsdom-global/register -r @babel/register --colors ./test/*.spec.js",
+    "test:watch": "mocha -r jsdom-global/register -r @babel/register --colors -w ./test/*.spec.js"
   },
   "devDependencies": {
-    "babel-cli": "*",
-    "babel-core": "*",
+    "@babel/cli": "*",
+    "@babel/core": "*",
+    "@babel/preset-env": "7.7.7",
+    "@babel/register": "*",
+    "@babel/plugin-proposal-export-default-from":"*",
     "babel-eslint": "*",
     "babel-loader": "*",
-    "babel-plugin-add-module-exports": "*",
-    "babel-plugin-transform-flow-strip-types": "*",
-    "babel-preset-es2015": "*",
-    "babel-preset-flow": "*",
     "chai": "*",
     "eslint": "*",
     "eslint-loader": "*",
-    "eslint-plugin-flowtype": "*",
-    "eslint-plugin-flowtype-errors": "*",
-    "flow-bin": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
     "mocha": "*",
-    "webpack": "*",
-    "yargs": "*",
-    "documentation": "*"
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "yargs": "*"
   },
   "eslintConfig": {
     "env": {
@@ -42,40 +39,29 @@
     "parser": "babel-eslint",
     "parserOptions": {
       "sourceType": "module"
-    },
-    "extends": [
-      "plugin:flowtype/recommended"
-    ],
-    "plugins": [
-      "flowtype",
-      "flowtype-errors"
-    ],
-    "rules": {
-      "flowtype-errors/show-errors": 2
     }
   },
   "babel": {
     "presets": [
-      "es2015",
-      "flow"
+      "@babel/preset-env"
     ],
     "plugins": [
-      "transform-flow-strip-types"
+      "@babel/plugin-proposal-export-default-from"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js.git"
+    "url": "https://github.com/buda-base/tibetan-sort-js.git"
   },
   "keywords": [
-    "tibetan",
-    "collation",
-    "sorting"
+    "Hanzi",
+    "Chinese Traditional",
+    "Chinese Simplified"
   ],
   "author": "Elie Roux (Buddhist Digital Resource Center)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
+    "url": "https://github.com/buda-base/tibetan-sort-js/issues"
   },
-  "homepage": "https://github.com/BuddhistDigitalResourceCenter/tibetan-sort-js/issues"
+  "homepage": "https://github.com/buda-base/tibetan-sort-js/issues"
 }

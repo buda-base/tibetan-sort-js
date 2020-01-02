@@ -1,7 +1,7 @@
 /* global describe, it, before */
 
 import chai from 'chai';
-import {compare} from '../dist/tibetan-sort-js.js';
+import {compare} from '../dist/main.js';
 
 chai.expect();
 
