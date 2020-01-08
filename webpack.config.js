@@ -15,8 +15,7 @@ const config = {
     path: __dirname + '/dist',
     filename: outputFile,
     library: libraryName,
-    libraryTarget: 'umd',
-    umdNamedDefine: true
+    libraryTarget: 'global',
   },
   module: {
     rules: [
