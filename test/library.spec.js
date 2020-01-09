@@ -1,7 +1,9 @@
 /* global describe, it, before */
 
 import chai from 'chai';
-import sortjs from '../dist/main.js';
+
+require('../dist/main.js');
+const sortjs = window["tibetan-sort-js"].default;
 
 chai.expect();
 
