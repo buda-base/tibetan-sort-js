@@ -112,6 +112,7 @@ function initEwts() {
         "highestprimaryweight": 0
     };
     addBatch(trieEwts, ['+', '.']);
+    addBatch(trieEwts, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
     addBatch(trieEwts, ['a', 'A', 'i', 'I', '-i', '-I', 'u', 'U', 'e', 'ai', 'o', 'au']);
     addBatch(trieEwts, ['k', '\\u0f88+k', '\\u0f6b', 'dk', 'bk', 'rk', 'lk', 'sk', 'brk', 'bsk']);
     addBatch(trieEwts, ['kh', '\\u0f88+kh', 'mkh', '\'kh']);
@@ -132,6 +133,7 @@ function initEwts() {
     addBatch(trieEwts, ['ts', 'gts', 'bts', 'rts', 'sts', 'brts', 'bsts']);
     addBatch(trieEwts, ['tsh', 'mtsh', '\'tsh']);
     addBatch(trieEwts, ['dz', 'mdz', '\'dz', 'rdz', 'brdz']);
+    addBatch(trieEwts, ['l']);
     addBatch(trieEwts, ['sh', 'gsh', 'bsh']);
     addBatch(trieEwts, ['z', 'gz', 'bz']);
     addBatch(trieEwts, ['zh', 'gzh', 'bzh']);
