@@ -42,9 +42,12 @@ describe('Comparing Tibetan Unicode strings', () => {
 describe('Comparing Ewts strings', () => {
   describe('sorting', () => {
     it('should return the correct order', () => {
+      expect(sortjs.compareEwts("ka","o")).to.be.equal(-1);
       expect(sortjs.compareEwts("brka","ga")).to.be.equal(-1);
       expect(sortjs.compareEwts("g", "b")).to.be.equal(-1);
       expect(sortjs.compareEwts("la", "ki")).to.be.equal(1);
+      expect(sortjs.compareEwts("le", "li")).to.be.equal(1);
+      expect(sortjs.compareEwts("e", "i")).to.be.equal(1);
       expect(sortjs.compareEwts("spyod", "rje")).to.be.equal(1);
       expect(sortjs.compareEwts("don", "rje")).to.be.equal(1);
       expect(sortjs.compareEwts("kra", "gra")).to.be.equal(-1);

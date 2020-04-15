@@ -96,6 +96,7 @@ function initUni() {
     addBatch(trieUni, ['ཤ', 'ཥ', 'གཤ', 'བཤ']);
     addBatch(trieUni, ['ས', 'གསག', 'གསང', 'གསད', 'གསན', 'གསབ', 'གསའ', 'གསར', 'གསལ', 'གསས', 'གསི', 'གསུ', 'གསེ', 'གསོ', 'གསྭ', 'བསག', 'བསང', 'བསད', 'བསབ', 'བསམ', 'བསཾ', 'བསའ', 'བསར', 'བསལ', 'བསས', 'བསི', 'བསུ', 'བསེ', 'བསོ', 'བསྭ', 'བསྲ', 'བསླ']);
     addBatch(trieUni, ['ཧ', 'ལྷ']);
+    addBatch(trieUni, ['ཨ']);
     addBatch(trieUni, ['།', '༎', '༏', '༐', '༑', '༔', '༴', '\u0F0B']);
     // we want 0F0B = OF0C
     let tshegprops = getLongestMatch('\u0F0B', 0, trieUni);
@@ -112,8 +113,8 @@ function initEwts() {
         "highestprimaryweight": 0
     };
     addBatch(trieEwts, ['+', '.']);
-    addBatch(trieEwts, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
     addBatch(trieEwts, ['a', 'A', 'i', 'I', '-i', '-I', 'u', 'U', 'e', 'ai', 'o', 'au']);
+    addBatch(trieEwts, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
     addBatch(trieEwts, ['k', '\\u0f88+k', '\\u0f6b', 'dk', 'bk', 'rk', 'lk', 'sk', 'brk', 'bsk']);
     addBatch(trieEwts, ['kh', '\\u0f88+kh', 'mkh', '\'kh']);
     addBatch(trieEwts, ['g', 'dg', 'bg', 'mg', '\'g', 'rg', 'lg', 'sg', 'brg', 'bsg']);
@@ -142,6 +143,7 @@ function initEwts() {
     addBatch(trieEwts, ['sh', 'Sh', 'gsh', 'bsh']);
     addBatch(trieEwts, ['s', 'gs', 'bs']);
     addBatch(trieEwts, ['h', 'lh']);
+    addBatch(trieEwts, [' a', ' A', ' i', ' I', ' -i', ' -I', ' u', ' U', ' e', ' ai', ' o', ' au']);
     addBatch(trieEwts, ['/', ';', '|', ':', '=', ' ']);
     // we want (space) = *
     let tshegprops = getLongestMatch(' ', 0, trieEwts);
@@ -174,7 +176,7 @@ function getLongestMatch(str, off, t) {
     var saveSecondary = 0;
     for (i = off; i < strLength; i++) {
         let curChar = str.charAt(i);
-        if (current[curChar]) {
+        if (current && current[curChar]) {
             current = current[curChar];
             if (current.prim) {
                 saveNbChars = saveNbChars +1;
@@ -249,6 +251,13 @@ function compare(a, b) {
  */
 function compareEwts(a, b) {
     if (trieEwts == null) initEwts();
+    // exception: in order to sort "o rgyan" correctly, we add a space
+    // before the string if it starts with a vowel. This is an edge case
+    // specific to ewts
+    if ("aeiou".includes(a.charAt(0)))
+        a = " "+a;
+    if ("aeiou".includes(b.charAt(0)))
+        b = " "+b;
     return compareInTrie(a, b, trieEwts);
 }
 
