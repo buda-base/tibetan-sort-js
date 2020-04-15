@@ -1,6 +1,6 @@
 {
   "name": "tibetan-sort-js",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Tibetan string sorting according to customary native order",
   "main": "dist/main.js",
   "scripts": {
