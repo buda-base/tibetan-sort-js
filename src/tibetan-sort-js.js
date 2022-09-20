@@ -90,9 +90,10 @@ function initUni() {
     addBatch(trieUni, ['ཛ', 'མཛ', 'འཛ', 'རྫ', 'བརྫ']);
     addBatch(trieUni, ['ཞ', 'གཞ', 'བཞ']);
     addBatch(trieUni, ['ཟ', 'གཟ', 'བཟ']);
-    addBatch(trieUni, ['ཞ', 'གཞ', 'བཞ']);
+    addBatch(trieUni, ['འ']);
     addBatch(trieUni, ['ཡ', 'གཡ']);
     addBatch(trieUni, ['ར', 'ཪ', 'ཬ', 'བརླ', 'བཪླ']);
+    addBatch(trieUni, ['ལ']);
     addBatch(trieUni, ['ཤ', 'ཥ', 'གཤ', 'བཤ']);
     addBatch(trieUni, ['ས', 'གསག', 'གསང', 'གསད', 'གསན', 'གསབ', 'གསའ', 'གསར', 'གསལ', 'གསས', 'གསི', 'གསུ', 'གསེ', 'གསོ', 'གསྭ', 'བསག', 'བསང', 'བསད', 'བསབ', 'བསམ', 'བསཾ', 'བསའ', 'བསར', 'བསལ', 'བསས', 'བསི', 'བསུ', 'བསེ', 'བསོ', 'བསྭ', 'བསྲ', 'བསླ']);
     addBatch(trieUni, ['ཧ', 'ལྷ']);
@@ -134,12 +135,13 @@ function initEwts() {
     addBatch(trieEwts, ['ts', 'gts', 'bts', 'rts', 'sts', 'brts', 'bsts']);
     addBatch(trieEwts, ['tsh', 'mtsh', '\'tsh']);
     addBatch(trieEwts, ['dz', 'mdz', '\'dz', 'rdz', 'brdz']);
-    addBatch(trieEwts, ['l']);
-    addBatch(trieEwts, ['sh', 'gsh', 'bsh']);
-    addBatch(trieEwts, ['z', 'gz', 'bz']);
+    addBatch(trieEwts, ['w']);
     addBatch(trieEwts, ['zh', 'gzh', 'bzh']);
+    addBatch(trieEwts, ['z', 'gz', 'bz']);
+    addBatch(trieEwts, ["'"]);
     addBatch(trieEwts, ['y', 'g.y']);
     addBatch(trieEwts, ['r', 'R', '\\u0f6c', 'brl']);
+    addBatch(trieEwts, ['l']);
     addBatch(trieEwts, ['sh', 'Sh', 'gsh', 'bsh']);
     addBatch(trieEwts, ['s', 'gs', 'bs']);
     addBatch(trieEwts, ['h', 'lh']);

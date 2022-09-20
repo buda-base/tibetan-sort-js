@@ -35,6 +35,8 @@ describe('Comparing Tibetan Unicode strings', () => {
       expect(sortjs.compare("བརྐ","ག")).to.be.equal(-1);
       expect(sortjs.compare("ག", "བ",)).to.be.equal(-1);
       expect(sortjs.compare("ག་བརྐ","ག་ག")).to.be.equal(-1);
+      expect(sortjs.compare("ལ","ཀ")).to.be.equal(1);
+      expect(sortjs.compare("ལ","ཤ")).to.be.equal(-1);
     });
   });
 });
