@@ -88,6 +88,7 @@ function initUni() {
     addBatch(trieUni, ['ཙ', 'གཙ', 'བཙ', 'རྩ', 'སྩ', 'བརྩ', 'བསྩ']);
     addBatch(trieUni, ['ཚ', 'མཚ', 'འཚ']);
     addBatch(trieUni, ['ཛ', 'མཛ', 'འཛ', 'རྫ', 'བརྫ']);
+    addBatch(trieUni, ['ཝ']);
     addBatch(trieUni, ['ཞ', 'གཞ', 'བཞ']);
     addBatch(trieUni, ['ཟ', 'གཟ', 'བཟ']);
     addBatch(trieUni, ['འ']);
