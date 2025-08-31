@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tibetan Sorting app</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        #textInput {
+            width: 100%;
+            height: 300px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: 'Times New Roman', serif;
+            resize: vertical;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        
+        #textInput:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .sort-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .sort-button:hover {
+            background-color: #45a049;
+        }
+        
+        .sort-button:active {
+            background-color: #3d8b40;
+        }
+        
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f4fd;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tibetan Sorting app</h1>
+        
+        <textarea id="textInput" placeholder="Enter Tibetan text here, one line per item to sort...
+
+Example Tibetan Unicode text:
+ཤེས་རབ་
+སྙིང་པོ་
+ཐེག་པ་
+ཆོས་ཀྱི་
+
+Example EWTS/Wylie text:
+shes rab
+snying po
+theg pa
+chos kyi"></textarea>
+        
+        <div class="button-container">
+            <button class="sort-button" onclick="sortText()">Sort</button>
+            <button class="sort-button" onclick="sortWylie()">Sort Wylie</button>
+        </div>
+        
+        <div class="info">
+            <strong>Instructions:</strong><br>
+            • Enter Tibetan text in the text area above, with each item on a separate line<br>
+            • Click "Sort" for Unicode Tibetan text sorting<br>
+            • Click "Sort Wylie" for EWTS (Extended Wylie) transliteration sorting<br>
+            • The sorted result will replace the content in the text area
+        </div>
+    </div>
+
+    <!-- Include the Tibetan sort library -->
+    <script src="dist/main.js"></script>
+    
+    <script>
+        // Get reference to the sorting functions
+        const tibetanSort = window["tibetan-sort-js"].default;
+        
+        function sortText() {
+            const textarea = document.getElementById('textInput');
+            const text = textarea.value.trim();
+            
+            if (!text) {
+                alert('Please enter some text to sort.');
+                return;
+            }
+            
+            // Split text into lines, filter out empty lines, sort, and join back
+            const lines = text.split('\n')
+                             .map(line => line.trim())
+                             .filter(line => line.length > 0);
+            
+            if (lines.length === 0) {
+                alert('No valid lines to sort.');
+                return;
+            }
+            
+            try {
+                // Sort using the Unicode Tibetan compare function
+                const sortedLines = lines.sort(tibetanSort.compare);
+                
+                // Replace the content with sorted result
+                textarea.value = sortedLines.join('\n');
+            } catch (error) {
+                alert('Error sorting text: ' + error.message);
+                console.error('Sort error:', error);
+            }
+        }
+        
+        function sortWylie() {
+            const textarea = document.getElementById('textInput');
+            const text = textarea.value.trim();
+            
+            if (!text) {
+                alert('Please enter some text to sort.');
+                return;
+            }
+            
+            // Split text into lines, filter out empty lines, sort, and join back
+            const lines = text.split('\n')
+                             .map(line => line.trim())
+                             .filter(line => line.length > 0);
+            
+            if (lines.length === 0) {
+                alert('No valid lines to sort.');
+                return;
+            }
+            
+            try {
+                // Sort using the EWTS (Wylie) compare function
+                const sortedLines = lines.sort(tibetanSort.compareEwts);
+                
+                // Replace the content with sorted result
+                textarea.value = sortedLines.join('\n');
+            } catch (error) {
+                alert('Error sorting text: ' + error.message);
+                console.error('Sort error:', error);
+            }
+        }
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey || event.metaKey) {
+                if (event.key === '1') {
+                    event.preventDefault();
+                    sortText();
+                } else if (event.key === '2') {
+                    event.preventDefault();
+                    sortWylie();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
