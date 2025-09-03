@@ -236,7 +236,7 @@ function compareInTrie(a, b, t) {
  * @returns {number} - 0 if equivalent, 1 if a > b, -1 if a < b
  * @summary compares two strings.
  */
-function compare(a, b) {
+export function compare(a, b) {
     if (trieUni == null) initUni();
     return compareInTrie(a, b, trieUni);
 }
@@ -252,7 +252,7 @@ function compare(a, b) {
  * @returns {number} - 0 if equivalent, 1 if a > b, -1 if a < b
  * @summary compares two strings.
  */
-function compareEwts(a, b) {
+export function compareEwts(a, b) {
     if (trieEwts == null) initEwts();
     // exception: in order to sort "o rgyan" correctly, we add a space
     // before the string if it starts with a vowel. This is an edge case
@@ -265,5 +265,5 @@ function compareEwts(a, b) {
 }
 
 
-
-export default { compare , compareEwts };
+const api = { compare, compareEwts };
+export default api;
