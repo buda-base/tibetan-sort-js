@@ -69,6 +69,17 @@
             background-color: #3d8b40;
         }
         
+        .sort-button:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .sort-button:disabled:hover {
+            background-color: #cccccc;
+        }
+        
         .info {
             margin-top: 20px;
             padding: 15px;
@@ -114,14 +125,16 @@ theg pa
 chos kyi"></textarea>
         
         <div class="button-container">
-            <button class="sort-button" onclick="sortText()">Sort</button>
+            <button class="sort-button" onclick="sortBoIntl()" id="sortBoIntlButton">Sort</button>
+            <button class="sort-button" onclick="sortText()">Sort (approximate)</button>
             <button class="sort-button" onclick="sortWylie()">Sort Wylie</button>
         </div>
         
         <div class="info">
             <strong>Instructions:</strong><br>
             • Enter Tibetan text in the text area above, with each item on a separate line<br>
-            • Click "Sort" for Unicode Tibetan text sorting<br>
+            • Click "Sort" for native browser Tibetan sorting (Firefox recommended)<br>
+            • Click "Sort (approximate)" for custom Unicode Tibetan text sorting<br>
             • Click "Sort Wylie" for EWTS (Extended Wylie) transliteration sorting<br>
             • The sorted result will replace the content in the text area
         </div>
@@ -143,7 +156,7 @@ chos kyi"></textarea>
 
     <script>
       // Grab the compare functions (or just use TibetanSort.compare inline)
-      const { compare, compareEwts } = TibetanSort;
+      const { compare, compareEwts, boIntlCollatorWorks, compareBoIntl } = TibetanSort;
 
       function sortText() {
         const textarea = document.getElementById('textInput');
@@ -177,10 +190,44 @@ chos kyi"></textarea>
         }
       }
 
+      function sortBoIntl() {
+        const textarea = document.getElementById('textInput');
+        const text = textarea.value.trim();
+        if (!text) return alert('Please enter some text to sort.');
+
+        const lines = text.split('\n').map(s => s.trim()).filter(Boolean);
+        if (!lines.length) return alert('No valid lines to sort.');
+
+        try {
+          textarea.value = lines.sort(compareBoIntl).join('\n');
+        } catch (error) {
+          alert('Error sorting text: ' + error.message);
+          console.error('Sort error:', error);
+        }
+      }
+
+      // Initialize the sort button based on browser capabilities
+      function initializeSortButton() {
+        const sortButton = document.getElementById('sortBoIntlButton');
+        const isSupported = boIntlCollatorWorks();
+        
+        if (!isSupported) {
+          sortButton.disabled = true;
+          sortButton.title = 'Native Tibetan sorting is not supported in this browser. Please use Firefox for better Tibetan collation support.';
+        } else {
+          sortButton.disabled = false;
+          sortButton.title = 'Sort using native browser Tibetan collation';
+        }
+      }
+
+      // Initialize when the page loads
+      document.addEventListener('DOMContentLoaded', initializeSortButton);
+
       document.addEventListener('keydown', (event) => {
         if (event.ctrlKey || event.metaKey) {
-          if (event.key === '1') { event.preventDefault(); sortText(); }
-          else if (event.key === '2') { event.preventDefault(); sortWylie(); }
+          if (event.key === '1') { event.preventDefault(); sortBoIntl(); }
+          else if (event.key === '2') { event.preventDefault(); sortText(); }
+          else if (event.key === '3') { event.preventDefault(); sortWylie(); }
         }
       });
     </script>
