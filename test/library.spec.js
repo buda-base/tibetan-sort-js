@@ -32,7 +32,7 @@ describe('Comparing Tibetan Unicode strings', () => {
       expect(compare("ལ","ཤ")).to.be.equal(-1);
       expect(compare("ཁ་","ཁྱ་")).to.be.equal(-1);
       expect(compare("ཁ","ཁྱ")).to.be.equal(-1);
-      expect(compare("གད་","ག་")).to.be.equal(-1);
+      expect(compare("གད་","ག་")).to.be.equal(1);
       expect(compare("ཐར་","ཐུགས་")).to.be.equal(-1);
     });
   });
@@ -56,7 +56,7 @@ describe('Comparing Ewts strings', () => {
       expect(compareEwts("dag","dgar")).to.be.equal(1);
       expect(compareEwts("kha ","khra ")).to.be.equal(-1);
       expect(compareEwts("kha","khra")).to.be.equal(-1);
-      expect(compareEwts("gad","ga")).to.be.equal(-1);
+      expect(compareEwts("gad","ga")).to.be.equal(1);
       expect(compareEwts("thar","thugs")).to.be.equal(-1);
     });
   });

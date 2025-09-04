@@ -68,7 +68,11 @@ function initUni() {
         "primaryweights": {},
         "highestprimaryweight": 0
     };
-    addBatch(trieUni, ['ཱ', 'ི', 'ཱི', 'ྀ', 'ཱྀ', 'ུ', 'ཱུ', 'ེ', 'ཻ', 'ོ', 'ཽ']);
+    addBatch(trieUni, [' ', '།', '༎', '༏', '༐', '༑', '༔', '༴', '\u0F0B']);
+    addBatch(trieUni, ['\u0F90', '\u0FB9', '\u0F91', '\u0F92', '\u0F94', '\u0F95', '\u0F96', '\u0F97', 
+        '\u0F99', '\u0F9F', '\u0F9A', '\u0FA0', '\u0F9B', '\u0FA1', '\u0F9C', '\u0FA3', '\u0F9E', '\u0FA4', 
+        '\u0FA5', '\u0FA6', '\u0FA8', '\u0FA9', '\u0FAA', '\u0FAB', '\u0FAD', '\u0FBA', '\u0FAE', '\u0FAF', '\u0FB0', 
+        '\u0FB1', '\u0FBB', '\u0FB2', '\u0FBC', '\u0FB3', '\u0FB4', '\u0FB5', '\u0FB6', '\u0FB7', '\u0FB8' ]);
     addBatch(trieUni, ['ཀ', 'ྈྐ', 'ཫ', 'དཀ', 'བཀ', 'རྐ', 'ལྐ', 'སྐ', 'བརྐ', 'བསྐ']);
     addBatch(trieUni, ['ཁ', 'ྈྑ', 'མཁ', 'འཁ']);
     addBatch(trieUni, ['ག', 'དགག', 'དགང', 'དགད', 'དགན', 'དགབ', 'དགཝ', 'དགའ', 'དགར', 'དགལ', 'དགས', 'དགི', 'དགུ', 'དགེ', 'དགོ', 'དགྭ', 'དགྱ', 'དགྲ', 'བགག', 'བགང', 'བགད', 'བགབ', 'བགམ', 'བགཾ', 'བགཝ', 'བགའ', 'བགར', 'བགལ', 'བགི', 'བགུ', 'བགེ', 'བགོ', 'བགྭ', 'བགྱ', 'བགྲ', 'བགླ', 'མགག', 'མགང', 'མགད', 'མགབ', 'མགའ', 'མགར', 'མགལ', 'མགི', 'མགུ', 'མགེ', 'མགོ', 'མགྭ', 'མགྱ', 'མགྲ', 'འགག', 'འགང', 'འགད', 'འགན', 'འགབ', 'འགམ', 'འགཾ', 'འགའ', 'འགར', 'འགལ', 'འགས', 'འགི', 'འགུ', 'འགེ', 'འགོ', 'འགྭ', 'འགྱ', 'འགྲ', 'རྒ', 'ལྒ', 'སྒ', 'བརྒ', 'བསྒ']);
@@ -99,7 +103,7 @@ function initUni() {
     addBatch(trieUni, ['ས', 'གསག', 'གསང', 'གསད', 'གསན', 'གསབ', 'གསའ', 'གསར', 'གསལ', 'གསས', 'གསི', 'གསུ', 'གསེ', 'གསོ', 'གསྭ', 'བསག', 'བསང', 'བསད', 'བསབ', 'བསམ', 'བསཾ', 'བསའ', 'བསར', 'བསལ', 'བསས', 'བསི', 'བསུ', 'བསེ', 'བསོ', 'བསྭ', 'བསྲ', 'བསླ']);
     addBatch(trieUni, ['ཧ', 'ལྷ']);
     addBatch(trieUni, ['ཨ']);
-    addBatch(trieUni, ['།', '༎', '༏', '༐', '༑', '༔', '༴', '\u0F0B']);
+    addBatch(trieUni, ['ཱ', 'ི', 'ཱི', 'ྀ', 'ཱྀ', 'ུ', 'ཱུ', 'ེ', 'ཻ', 'ོ', 'ཽ']);
     // we want 0F0B = OF0C
     let tshegprops = getLongestMatch('\u0F0B', 0, trieUni);
     addToTrie(trieUni, tshegprops.prim, tshegprops.sec, '\u0F0C');
@@ -114,6 +118,7 @@ function initEwts() {
         "primaryweights": {},
         "highestprimaryweight": 0
     };
+    addBatch(trieEwts, ['/', ';', '|', ':', '=', ' ']);
     addBatch(trieEwts, ['+', '.']);
     addBatch(trieEwts, ['a', 'A', 'i', 'I', '-i', '-I', 'u', 'U', 'e', 'ai', 'o', 'au']);
     addBatch(trieEwts, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
@@ -147,7 +152,6 @@ function initEwts() {
     addBatch(trieEwts, ['s', 'gs', 'bs']);
     addBatch(trieEwts, ['h', 'lh']);
     addBatch(trieEwts, [' a', ' A', ' i', ' I', ' -i', ' -I', ' u', ' U', ' e', ' ai', ' o', ' au']);
-    addBatch(trieEwts, ['/', ';', '|', ':', '=', ' ']);
     // we want (space) = *
     let tshegprops = getLongestMatch(' ', 0, trieEwts);
     addToTrie(trieEwts, tshegprops.prim, tshegprops.sec, '*');
@@ -204,12 +208,17 @@ function getLongestMatch(str, off, t) {
  * Compares two strings using a trie given as the third argument.
  */
 function compareInTrie(a, b, t) {
+    console.log("compare "+a+" and "+b)
     var aOffset = 0;
     var bOffset = 0;
     var i = 0;
     while (true) {
         let alm = getLongestMatch(a, aOffset, t);
+        //console.log("longest match 1: ");
+        //console.log(alm)
         let blm = getLongestMatch(b, bOffset, t);
+        //console.log("longest match 2: ")
+        //console.log(blm)
         if (alm.i < 1 && blm.i < 1) return 0;
         if (alm.i < 1) return -1;
         if (blm.i < 1) return 1;
@@ -220,7 +229,6 @@ function compareInTrie(a, b, t) {
         aOffset = aOffset + alm.i;
         bOffset = bOffset + blm.i;
     }
-
     return 0;
 }
 
@@ -264,6 +272,44 @@ export function compareEwts(a, b) {
     return compareInTrie(a, b, trieEwts);
 }
 
+// Returns true if Intl.Collator('bo') sorts Tibetan strings as expected.
+export function boIntlCollatorWorks() {
+  try {
+    if (typeof Intl === 'undefined' || typeof Intl.Collator !== 'function') return false;
 
-const api = { compare, compareEwts };
+    // Create a Tibetan collator for sorting.
+    const coll = new Intl.Collator('bo', { usage: 'sort', sensitivity: 'variant' });
+
+    // Expected Tibetan collation order for this probe set.
+    const expected = ["ང", "རྔ", "ལྔ", "སྔ", "བརྔ", "བསྔ", "ཅ"];
+
+    // A shuffled sample we will sort and compare to 'expected'.
+    const sample = ["ལྔ", "ང", "ཅ", "རྔ", "སྔ", "བརྔ", "བསྔ"];
+
+    // Sort using the collator. Use a wrapper to avoid any 'this' binding surprises.
+    const sorted = sample.slice().sort((a, b) => coll.compare(a, b));
+
+    // Compare arrays element-by-element (avoids stringifying).
+    if (sorted.length !== expected.length) return false;
+    for (let i = 0; i < expected.length; i++) {
+      if (sorted[i] !== expected[i]) return false;
+    }
+    return true;
+  } catch {
+    // Any failure (missing ICU data, unsupported locale, etc.) => not working.
+    return false;
+  }
+}
+
+var coll = null;
+
+export function compareBoIntl(a, b) {
+    if (!coll) {
+        coll = new Intl.Collator('bo', { usage: 'sort', sensitivity: 'variant' });
+    }
+    return coll.compare(a, b);
+}
+
+
+const api = { compare, compareEwts, boIntlCollatorWorks, compareBoIntl };
 export default api;
