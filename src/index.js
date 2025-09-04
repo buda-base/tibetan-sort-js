@@ -208,7 +208,7 @@ function getLongestMatch(str, off, t) {
  * Compares two strings using a trie given as the third argument.
  */
 function compareInTrie(a, b, t) {
-    console.log("compare "+a+" and "+b)
+    //console.log("compare "+a+" and "+b)
     var aOffset = 0;
     var bOffset = 0;
     var i = 0;
