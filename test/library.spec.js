@@ -40,6 +40,10 @@ describe('Comparing Tibetan Unicode strings', () => {
       expect(compare("ཀོ་སྐོ", "ཀོ་སྐྱི")).to.be.equal(-1);
       expect(compare("ཀོ་ཁུག", "ཀོ་ཁྲོལ")).to.be.equal(-1);
       expect(compare("ཀོ་ཕུབ", "ཀོ་ཕྱར")).to.be.equal(-1);
+      // visarga (rnam bcad) after tsheg (https://github.com/buda-base/tibetan-sort-js/issues/32)
+      expect(compare("ཀ", "ཀཿ")).to.be.equal(-1);
+      expect(compare("ཀ་", "ཀཿ")).to.be.equal(-1);
+      expect(compare("ཀ་བཤད་", "ཀཿཐོག་དགོན་")).to.be.equal(-1);
     });
   });
 });
@@ -64,6 +68,9 @@ describe('Comparing Ewts strings', () => {
       expect(compareEwts("kha","khra")).to.be.equal(-1);
       expect(compareEwts("gad","ga")).to.be.equal(1);
       expect(compareEwts("thar","thugs")).to.be.equal(-1);
+      expect(compareEwts("ka", "kaH")).to.be.equal(-1);
+      expect(compareEwts("ka ", "kaH")).to.be.equal(-1);
+      expect(compareEwts("ka bshad", "kaH thog dgon")).to.be.equal(-1);
     });
   });
 });
@@ -77,6 +84,7 @@ describe('Unicode and EWTS sort consistently', () => {
       expect(compare("ཕི","ཕྱི")).to.be.equal(compareEwts("phi","phyi"));
       expect(compare("ཀོ","ཀྱ")).to.be.equal(compareEwts("ko","kya"));
       expect(compare("བཀོལ","བཀྱག")).to.be.equal(compareEwts("bkol","bkyag"));
+      expect(compare("ཀ་བཤད་", "ཀཿཐོག་དགོན་")).to.be.equal(compareEwts("ka bshad", "kaH thog dgon"));
     });
   });
 

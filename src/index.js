@@ -105,6 +105,8 @@ function initUni() {
         '\u0F99', '\u0F9F', '\u0F9A', '\u0FA0', '\u0F9B', '\u0FA1', '\u0F9C', '\u0FA3', '\u0F9E', '\u0FA4', 
         '\u0FA5', '\u0FA6', '\u0FA8', '\u0FA9', '\u0FAA', '\u0FAB', '\u0FAD', '\u0FBA', '\u0FAE', '\u0FAF', '\u0FB0', 
         '\u0FB1', '\u0FBB', '\u0FB2', '\u0FBC', '\u0FB3', '\u0FB4', '\u0FB5', '\u0FB6', '\u0FB7', '\u0FB8' ]);
+    // Combining marks after post-radicals (ICU: &༹<<྄<<ཿ<<྅<<ྈ<<…)
+    addBatch(trieUni, ['༹', '྄', 'ཿ', '྅', 'ྈ', 'ྉ', 'ྊ', 'ྋ', 'ྌ', 'ྍ', 'ྎ', 'ྏ']);
     // we want 0F0B = OF0C
     let tshegprops = getLongestMatch('\u0F0B', 0, trieUni);
     addToTrie(trieUni, tshegprops.prim, tshegprops.sec, '\u0F0C');
@@ -152,6 +154,7 @@ function initEwts() {
     addBatch(trieEwts, ['sh', 'Sh', 'gsh', 'bsh']);
     addBatch(trieEwts, ['s', 'gs', 'bs']);
     addBatch(trieEwts, ['h', 'lh']);
+    addBatch(trieEwts, ['H']);
     addBatch(trieEwts, [' a', ' A', ' i', ' I', ' -i', ' -I', ' u', ' U', ' e', ' ai', ' o', ' au']);
     // we want (space) = *
     let tshegprops = getLongestMatch(' ', 0, trieEwts);

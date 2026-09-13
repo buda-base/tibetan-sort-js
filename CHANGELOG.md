@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). It follows [some conventions](http://keepachangelog.com/).
 
+## [2.3.1] - 2026-09-13
+### Fixed
+- Sort visarga (rnam bcad, `ཿ` / EWTS `H`) after tsheg, matching dictionary order (issue [#32](https://github.com/buda-base/tibetan-sort-js/issues/32))
+- Assign primary weights to the other ICU combining marks (`༹`, `྄`, `྅`, `ྈ`–`ྏ`) so they no longer sort before tsheg
+
 ## [2.3.0] - 2026-09-13
 ### Fixed
 - Sort vowels before subjoined letters in Unicode, matching EWTS and the ICU rule order (issues [#33](https://github.com/buda-base/tibetan-sort-js/issues/33) and [#28](https://github.com/buda-base/tibetan-sort-js/issues/28))
