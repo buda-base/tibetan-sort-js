@@ -69,10 +69,6 @@ function initUni() {
         "highestprimaryweight": 0
     };
     addBatch(trieUni, [' ', '།', '༎', '༏', '༐', '༑', '༔', '༴', '\u0F0B']);
-    addBatch(trieUni, ['\u0F90', '\u0FB9', '\u0F91', '\u0F92', '\u0F94', '\u0F95', '\u0F96', '\u0F97', 
-        '\u0F99', '\u0F9F', '\u0F9A', '\u0FA0', '\u0F9B', '\u0FA1', '\u0F9C', '\u0FA3', '\u0F9E', '\u0FA4', 
-        '\u0FA5', '\u0FA6', '\u0FA8', '\u0FA9', '\u0FAA', '\u0FAB', '\u0FAD', '\u0FBA', '\u0FAE', '\u0FAF', '\u0FB0', 
-        '\u0FB1', '\u0FBB', '\u0FB2', '\u0FBC', '\u0FB3', '\u0FB4', '\u0FB5', '\u0FB6', '\u0FB7', '\u0FB8' ]);
     addBatch(trieUni, ['ཀ', 'ྈྐ', 'ཫ', 'དཀ', 'བཀ', 'རྐ', 'ལྐ', 'སྐ', 'བརྐ', 'བསྐ']);
     addBatch(trieUni, ['ཁ', 'ྈྑ', 'མཁ', 'འཁ']);
     addBatch(trieUni, ['ག', 'དགག', 'དགང', 'དགད', 'དགན', 'དགབ', 'དགཝ', 'དགའ', 'དགར', 'དགལ', 'དགས', 'དགི', 'དགུ', 'དགེ', 'དགོ', 'དགྭ', 'དགྱ', 'དགྲ', 'བགག', 'བགང', 'བགད', 'བགབ', 'བགམ', 'བགཾ', 'བགཝ', 'བགའ', 'བགར', 'བགལ', 'བགི', 'བགུ', 'བགེ', 'བགོ', 'བགྭ', 'བགྱ', 'བགྲ', 'བགླ', 'མགག', 'མགང', 'མགད', 'མགབ', 'མགའ', 'མགར', 'མགལ', 'མགི', 'མགུ', 'མགེ', 'མགོ', 'མགྭ', 'མགྱ', 'མགྲ', 'འགག', 'འགང', 'འགད', 'འགན', 'འགབ', 'འགམ', 'འགཾ', 'འགའ', 'འགར', 'འགལ', 'འགས', 'འགི', 'འགུ', 'འགེ', 'འགོ', 'འགྭ', 'འགྱ', 'འགྲ', 'རྒ', 'ལྒ', 'སྒ', 'བརྒ', 'བསྒ']);
@@ -104,6 +100,11 @@ function initUni() {
     addBatch(trieUni, ['ཧ', 'ལྷ']);
     addBatch(trieUni, ['ཨ']);
     addBatch(trieUni, ['ཱ', 'ི', 'ཱི', 'ྀ', 'ཱྀ', 'ུ', 'ཱུ', 'ེ', 'ཻ', 'ོ', 'ཽ']);
+    // Post-radicals after vowels, matching ICU / tibetan-collation rules.txt
+    addBatch(trieUni, ['\u0F90', '\u0FB9', '\u0F91', '\u0F92', '\u0F94', '\u0F95', '\u0F96', '\u0F97', 
+        '\u0F99', '\u0F9F', '\u0F9A', '\u0FA0', '\u0F9B', '\u0FA1', '\u0F9C', '\u0FA3', '\u0F9E', '\u0FA4', 
+        '\u0FA5', '\u0FA6', '\u0FA8', '\u0FA9', '\u0FAA', '\u0FAB', '\u0FAD', '\u0FBA', '\u0FAE', '\u0FAF', '\u0FB0', 
+        '\u0FB1', '\u0FBB', '\u0FB2', '\u0FBC', '\u0FB3', '\u0FB4', '\u0FB5', '\u0FB6', '\u0FB7', '\u0FB8' ]);
     // we want 0F0B = OF0C
     let tshegprops = getLongestMatch('\u0F0B', 0, trieUni);
     addToTrie(trieUni, tshegprops.prim, tshegprops.sec, '\u0F0C');
@@ -186,7 +187,7 @@ function getLongestMatch(str, off, t) {
         if (current && current[curChar]) {
             current = current[curChar];
             if (current.prim) {
-                saveNbChars = saveNbChars +1;
+                saveNbChars = i - off + 1;
                 savePrimary = current.prim;
                 saveSecondary = current.sec;
             } else if (savePrimary === 0) {

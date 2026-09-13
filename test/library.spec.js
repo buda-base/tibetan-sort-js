@@ -34,6 +34,12 @@ describe('Comparing Tibetan Unicode strings', () => {
       expect(compare("ཁ","ཁྱ")).to.be.equal(-1);
       expect(compare("གད་","ག་")).to.be.equal(1);
       expect(compare("ཐར་","ཐུགས་")).to.be.equal(-1);
+      // vowels before subscripts (https://github.com/buda-base/tibetan-sort-js/issues/33)
+      expect(compare("ཀ་བཀོལ་མ་", "ཀ་བཀྱག་")).to.be.equal(-1);
+      expect(compare("ཕི་པ་", "ཕྱི་རོ་")).to.be.equal(-1);
+      expect(compare("ཀོ་སྐོ", "ཀོ་སྐྱི")).to.be.equal(-1);
+      expect(compare("ཀོ་ཁུག", "ཀོ་ཁྲོལ")).to.be.equal(-1);
+      expect(compare("ཀོ་ཕུབ", "ཀོ་ཕྱར")).to.be.equal(-1);
     });
   });
 });
@@ -58,6 +64,30 @@ describe('Comparing Ewts strings', () => {
       expect(compareEwts("kha","khra")).to.be.equal(-1);
       expect(compareEwts("gad","ga")).to.be.equal(1);
       expect(compareEwts("thar","thugs")).to.be.equal(-1);
+    });
+  });
+});
+
+describe('Unicode and EWTS sort consistently', () => {
+  describe('vowel and suffix pairs', () => {
+    it('should return the same sign for equivalent Unicode and EWTS strings', () => {
+      // https://github.com/buda-base/tibetan-sort-js/issues/28
+      expect(compare("ཐ","ཐུ")).to.be.equal(compareEwts("tha","thu"));
+      expect(compare("ཐར","ཐུགས")).to.be.equal(compareEwts("thar","thugs"));
+      expect(compare("ཕི","ཕྱི")).to.be.equal(compareEwts("phi","phyi"));
+      expect(compare("ཀོ","ཀྱ")).to.be.equal(compareEwts("ko","kya"));
+      expect(compare("བཀོལ","བཀྱག")).to.be.equal(compareEwts("bkol","bkyag"));
+    });
+  });
+
+  describe('relative order of ka / kar / ki / kya', () => {
+    it('should match in both encodings', () => {
+      const uni = ["ཀ", "ཀར", "ཀི", "ཀྱ"];
+      const ewts = ["ka", "kar", "ki", "kya"];
+      const uniSorted = uni.slice().sort(compare).map((s) => ewts[uni.indexOf(s)]);
+      const ewtsSorted = ewts.slice().sort(compareEwts);
+      expect(uniSorted).to.deep.equal(ewtsSorted);
+      expect(ewtsSorted).to.deep.equal(["ka", "kar", "ki", "kya"]);
     });
   });
 });

@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/). It follows [some conventions](http://keepachangelog.com/).
 
+## [2.3.0] - 2026-09-13
+### Fixed
+- Sort vowels before subjoined letters in Unicode, matching EWTS and the ICU rule order (issues [#33](https://github.com/buda-base/tibetan-sort-js/issues/33) and [#28](https://github.com/buda-base/tibetan-sort-js/issues/28))
+- Count consumed characters correctly in longest-match for stacks such as བརྐ
+
 ## [2.1.3] - 2020-04-15
 ### Fixed
 - fix initial vowel in ewts
